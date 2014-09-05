@@ -87,4 +87,41 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
         stream.write();
 
     })
+
+    it("设置base路径后的transport", function (done) {
+
+        var fakeFile = new File({
+            cwd:"/",
+            base: "/test/",
+            path: "/test/demo/fuck/helloworld.js",
+            contents: new Buffer('define(function (require, exports, module) {\
+\
+            var a=require("./a");\
+        var b=require("../dir/b");\
+        a.hello();\
+\
+    })')
+        });
+
+        var stream = transport({base:"./test/demo"});
+
+        stream.once("data", function (file) {
+
+            var contents = file.contents.toString();
+
+            expect(file.isBuffer()).to.be.true;
+
+            expect(contents).to.contain("fuck/helloworld")
+
+                .and.to.contain('["./a","../dir/b"]')
+
+        })
+
+        stream.on("end", done);
+
+        stream.write(fakeFile);
+
+        stream.end();
+
+    })
 })
