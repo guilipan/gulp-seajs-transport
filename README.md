@@ -7,7 +7,7 @@ transport seajs module gulp plugin
 ## Install
 
 ```
-$ npm install --save-dev gulp-imagemin
+$ npm install --save-dev gulp-seajs-transport
 
 ```
 
