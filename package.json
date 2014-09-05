@@ -4,9 +4,8 @@
   "description": "transport seajs modules gulp plugin",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/guilipan/gulp-seajs-transport"
-
+    "type": "git",
+    "url": "https://github.com/guilipan/gulp-seajs-transport"
   },
   "author": {
     "name": "guilipan",
@@ -19,7 +18,7 @@
   "scripts": {
     "test": "mocha test/transport-spec.js"
   },
-  "main":"index.js",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
@@ -34,9 +33,11 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "coveralls": "^2.11.1",
     "event-stream": "^3.1.7",
     "gulp": "^3.8.7",
     "gulp-util": "^3.0.1",
+    "istanbul": "^0.3.2",
     "mocha": "^1.21.4",
     "through2": "^0.6.1"
   }
