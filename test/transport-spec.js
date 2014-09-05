@@ -10,6 +10,8 @@ var File = gutil.File;
 
 var transport = require("../index");
 
+var path = require("path");
+
 describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
     it("transport化后的seajs模块拥有id和依赖", function (done) {
@@ -49,10 +51,13 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
     })
 
     it("如果传入的是文件流,抛出stream不支持的异常", function (done) {
+
+        var streamPath = path.join(__dirname, "../testfiles/fake-seajs-module.js");
+
         var fakeFile = new File({
             base: "/test/",
             path: "/test/helloworld.js",
-            contents: fs.createReadStream("../testfiles/fake-seajs-module.js")
+            contents: fs.createReadStream(streamPath)
         });
 
         var stream = transport();
