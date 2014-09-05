@@ -1,0 +1,38 @@
+{
+  "name": "gulp-seajs-transport",
+  "version": "0.0.1",
+  "description": "transport seajs modules",
+  "license": "MIT",
+  "repository": "guilipan/gulp-seajs-transport",
+  "author": {
+    "name": "guilipan",
+    "email": "guilipan@163.com",
+    "url": "http://shaynegui.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin",
+    "seajs",
+    "transport"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.0",
+    "through2": "^0.6.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "event-stream": "^3.1.7",
+    "gulp": "^3.8.7",
+    "gulp-util": "^3.0.1",
+    "mocha": "^1.21.4",
+    "through2": "^0.6.1"
+  }
+}
