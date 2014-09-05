@@ -1,5 +1,6 @@
 .dist/
 node_modules/
 .idea/
+.travis.yml
 gulpfile.js
 .npmignore
