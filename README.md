@@ -6,6 +6,10 @@ gulp-seajs-transport
 transport seajs module gulp plugin
 用于对seajs模块进行transport化
 
+## Note
+
+与[gulp-transport](https://github.com/popomore/gulp-transport)的区别是本插件不需要每个模块拥有package.json
+
 ## Install
 
 ```
