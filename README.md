@@ -1,6 +1,8 @@
 gulp-seajs-transport
 ====================
 
+[![Build Status](https://travis-ci.org/guilipan/gulp-seajs-transport.svg?branch=master)](https://travis-ci.org/guilipan/gulp-seajs-transport)
+
 transport seajs module gulp plugin
 用于对seajs模块进行transport化
 
