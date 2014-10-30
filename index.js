@@ -22,7 +22,15 @@ module.exports = function (options) {
 
         }
 
-        if (file.isStream()) {
+        else if(file.isNull()){
+
+            gutil.log(gutil.colors.cyan('warning:'),"files contents should't be null");
+
+            return cb();
+
+        }
+
+        else if (file.isStream()) {
 
             this.emit("error", new PluginError("gulp-seajs-transport", "streaming not supported"));
 
@@ -30,8 +38,7 @@ module.exports = function (options) {
 
         }
 
-
-        if (file.isBuffer()) {
+        else if (file.isBuffer()) {
 
             if (options.base) {
 
@@ -60,6 +67,13 @@ module.exports = function (options) {
             this.push(file);
 
             cb();
+        }
+
+        else{
+
+            gutil.log(gutil.colors.cyan('warning:'),"there's something wrong with the file");
+
+            return cb();
         }
     })
 

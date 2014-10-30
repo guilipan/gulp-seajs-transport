@@ -91,7 +91,7 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
     it("设置base路径后的transport", function (done) {
 
         var fakeFile = new File({
-            cwd:"/",
+            cwd: "/",
             base: "/test/",
             path: "/test/demo/fuck/helloworld.js",
             contents: new Buffer('define(function (require, exports, module) {\
@@ -103,7 +103,7 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
     })')
         });
 
-        var stream = transport({base:"./test/demo"});
+        var stream = transport({base: "./test/demo"});
 
         stream.once("data", function (file) {
 
@@ -114,6 +114,31 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
             expect(contents).to.contain("fuck/helloworld")
 
                 .and.to.contain('["./a","../dir/b"]')
+
+        })
+
+        stream.on("end", done);
+
+        stream.write(fakeFile);
+
+        stream.end();
+
+    })
+
+    it("如果file的contents为null,不做任何事情", function (done) {
+        var fakeFile = new File({
+            base: "/test/",
+            path: "/test/helloworld.js",
+            contents: null
+        });
+
+        var stream = transport();
+
+        stream.once("data", function (file) {
+
+            var contents = file.contents;
+
+            expect(contents).to.be.null;
 
         })
 
