@@ -52,7 +52,7 @@ transport时可以指定一个基准路径,使生成的模块ID都是相对于�
 
 0.0.3 => 修复如果输入的是文件夹，整个task会被意外退出的问题
 
-0.0.4 => 将功能修复为替换define函数部分,而不是重新覆盖整个文件,防止有文件写的是兼容方式
+[0.0.4](https://github.com/guilipan/gulp-seajs-transport/issues/2) => 将功能修复为替换define函数部分,而不是重新覆盖整个文件,防止有文件写的是兼容方式
 如
 ```
 if (typeof define === "function" && define.cmd) {
