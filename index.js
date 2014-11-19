@@ -7,6 +7,7 @@ var util = require("util");
 module.exports = function (options) {
 
     options = options || {};
+    var CONTENTS_RE = /define\s*\(\s*function\s*\(.*?\)\s*\{([\S\s]+)\}\s*\)/g;
 
     var stream = through.obj(function (file, enc, cb) {
 
@@ -62,7 +63,9 @@ module.exports = function (options) {
 
             var transportModule = parseTransportTemplate(seajsModule);
 
-            file.contents = new Buffer(transportModule);
+
+
+            file.contents = new Buffer(contents.replace(CONTENTS_RE,transportModule));
 
             this.push(file);
 
@@ -110,7 +113,7 @@ module.exports = function (options) {
      */
     function parseContents(code) {
 
-        var CONTENTS_RE = /define\s*\(\s*function\s*\(.*?\)\s*\{([\S\s]+)\}\s*\)/g;
+
 
         var ret = "";
 

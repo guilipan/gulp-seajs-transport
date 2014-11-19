@@ -149,4 +149,53 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
         stream.end();
 
     })
+
+    it("如果file的content为针对cmd兼容的写法,则只替换旧的部分",function(done){
+
+
+        var fakeFile = new File({
+            base: "/test/",
+            path: "/test/helloworld.js",
+            contents: new Buffer('(function () {\
+                \
+                            function Animal(a, b) {\
+                            this.a = a;\
+                            this.b = b;\
+                        }\
+                \
+                        if (typeof define === "function" && define.cmd) {\
+                            // 有 Sea.js 等 CMD 模块加载器存在\
+                            define(function (require, exports, module) {\
+                                module.exports = Animal;\
+                            })\
+                        }\
+                \
+                    })()\
+                    ')
+        });
+
+        var stream = transport();
+
+        stream.once("data", function (file) {
+
+            var contents = file.contents.toString();
+
+            expect(file.isBuffer()).to.be.true;
+
+            expect(contents).to.contain("function Animal(a, b)")
+                .and.to.contain('if (typeof define === "function" && define.cmd)')
+                .and.to.contain("helloworld")
+                .and.to.contain("[]")
+            ;
+
+
+
+        });
+
+        stream.on("end", done);
+
+        stream.write(fakeFile);
+
+        stream.end();
+    })
 })
