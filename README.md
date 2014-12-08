@@ -59,6 +59,7 @@ if (typeof define === "function" && define.cmd) {
   // 有 Sea.js 等 CMD 模块加载器存在
 }
 ```
+0.0.5 => 修复待匹配的文件中有$占位符的bug
 
 ## Licence
 

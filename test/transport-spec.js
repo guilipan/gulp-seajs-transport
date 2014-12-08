@@ -198,4 +198,51 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
         stream.end();
     })
+
+    it("内容里面含有正则表达式",function(done){
+        var fakeFile=new File({
+            base: "/test/",
+            path: "/test/helloworld.js",
+            contents:new Buffer("define(function(require, exports, module){\
+            var U = require('./util');\
+        var prefix = '', eventPrefix, endEventName, endAnimationName,\
+            vendors = { Webkit: 'webkit', Moz: '', O: 'o' },\
+            document = window.document, testEl = document.createElement('div'),\
+            supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,\
+\            transitionProperty, transitionDuration, transitionTiming, transitionDelay,\
+            animationName, animationDuration, animationTiming, animationDelay,\
+            cssReset = {}\
+\
+        function dasherize(str) { return str.replace(/([a-z])([A-Z])/,'$1-$2').toLowerCase() }\
+        function normalizeEvent(name) { return eventPrefix ? eventPrefix + name : name.toLowerCase() }\
+\
+        U.fn.each(vendors, function(event, vendor){\
+            if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {\
+                prefix = '-' + vendor.toLowerCase() + '-'\
+                eventPrefix = event\
+                return false\
+            }\
+        })})")
+        })
+
+        var stream = transport();
+
+        stream.once("data", function (file) {
+
+            var contents = file.contents.toString();
+
+            expect(file.isBuffer()).to.be.true;
+
+            expect(contents).to.contain("supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i")
+                .and.to.contain("return str.replace(/([a-z])([A-Z])/,'$1-$2'");
+
+
+        });
+
+        stream.on("end", done);
+
+        stream.write(fakeFile);
+
+        stream.end();
+    })
 })

@@ -7,7 +7,7 @@ var util = require("util");
 module.exports = function (options) {
 
     options = options || {};
-    var CONTENTS_RE = /define\s*\(\s*function\s*\(.*?\)\s*\{([\S\s]+)\}\s*\)/g;
+    var CONTENTS_RE = /([\S\s]*?)define\s*\(\s*function\s*\(.*?\)\s*\{([\S\s]+)\}\s*\)([\S\s]*?)/g;
 
     var stream = through.obj(function (file, enc, cb) {
 
@@ -59,13 +59,13 @@ module.exports = function (options) {
 
             seajsModule.id = parseId(file.path, base);
 
-            seajsModule.contents = parseContents(contents);
+            seajsModule.contents = contents;
 
             var transportModule = parseTransportTemplate(seajsModule);
 
 
 
-            file.contents = new Buffer(contents.replace(CONTENTS_RE,transportModule));
+            file.contents = new Buffer(transportModule);
 
             this.push(file);
 
@@ -106,30 +106,6 @@ module.exports = function (options) {
 
         return ret
     }
-
-
-    /*
-     匹配seajs模块的内容文本
-     */
-    function parseContents(code) {
-
-
-
-        var ret = "";
-
-        code.replace(CONTENTS_RE, function (m, m1) {
-
-            if (m1) {
-
-                ret = m1;
-
-            }
-
-        })
-
-        return ret;
-    }
-
     /*
      得到模块ID,相对于某个base路径的
      filepath:/root/ab/c/d.js
@@ -151,10 +127,8 @@ module.exports = function (options) {
      生成transport化后的模块
      */
     function parseTransportTemplate(seajsModule) {
-
-        var tpl = 'define("%s",%j,function(require,exports,module){%s})';
-
-        return util.format(tpl, seajsModule.id, seajsModule.dependencies, seajsModule.contents);
-
+        var tpl = '$1define("%s",%j,function(require,exports,module){$2})$3';
+        tpl = util.format(tpl, seajsModule.id, seajsModule.dependencies);
+        return seajsModule.contents.replace(CONTENTS_RE, tpl);
     }
 }
