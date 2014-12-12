@@ -25,7 +25,7 @@ module.exports = function (options) {
 
         else if(file.isNull()){
 
-            gutil.log(gutil.colors.cyan('warning:'),"files contents should't be null");
+            //gutil.log(gutil.colors.cyan('warning:'),"files contents should't be null");
 
             return cb();
 

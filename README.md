@@ -61,6 +61,8 @@ if (typeof define === "function" && define.cmd) {
 ```
 0.0.5 => 修复待匹配的文件中有$占位符的bug
 
+0.0.6 => 去掉传入目录而不是文件的时候的提示
+
 ## Licence
 
 MIT
