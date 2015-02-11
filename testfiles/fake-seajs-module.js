@@ -1,4 +1,3 @@
-
 define(function (require, exports, module) {
 
     var a=require("./a");
@@ -6,3 +5,4 @@ define(function (require, exports, module) {
     a.hello();
 
 })
+
