@@ -1,6 +1,6 @@
 {
   "name": "gulp-seajs-transport",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "transport seajs modules gulp plugin",
   "license": "MIT",
   "repository": {

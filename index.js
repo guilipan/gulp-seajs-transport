@@ -36,15 +36,10 @@ module.exports = function (options) {
 
 		else if (file.isBuffer()) {
 
-			if (options.base) {
-
-				options.base = path.join(file.cwd, options.base);
-
-			}
-
-			else {
+			if (!options.base) {
 
 				options.base = file.base;
+
 
 			}
 
