@@ -1,8 +1,9 @@
 /**
  * Created by shaynegui on 2015/2/11.
  */
-define(function (require, exports, module) {
+define(function (require, exports) {
 	var U = require('./util');
+	var s = require("s")
 	var prefix = '', eventPrefix, endEventName, endAnimationName,
 		vendors = {Webkit: 'webkit', Moz: '', O: 'o'},
 		document = window.document, testEl = document.createElement('div'),

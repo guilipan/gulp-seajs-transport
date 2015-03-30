@@ -64,6 +64,8 @@ if (typeof define === "function" && define.cmd) {
 0.0.6 => 去掉传入目录而不是文件的时候的提示
 
 0.0.7 => 将transport的实现方法替换为cmd-util的抽象语法树方式
+
+0.0.9 => 修复当传入的js文件不属于合法的cmd格式的判断
 ## Licence
 
 MIT

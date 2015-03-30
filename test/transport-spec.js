@@ -155,11 +155,10 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 	it("如果file的content为针对cmd兼容的写法,则只替换旧的部分", function (done) {
 
 
-
 		var fakeFile = new File({
 			base: "/test/",
 			path: "/test/helloworld.js",
-			contents: fs.readFileSync(path.resolve(__dirname,"../testfiles/fake-seajs-file-with-cmd-wrapper.js"))
+			contents: fs.readFileSync(path.resolve(__dirname, "../testfiles/fake-seajs-file-with-cmd-wrapper.js"))
 		});
 
 		var stream = transport();
@@ -190,7 +189,7 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 		var fakeFile = new File({
 			base: "/test/",
 			path: "/test/helloworld.js",
-			contents: fs.readFileSync(path.resolve(__dirname,"../testfiles/fake-seajs-file-with-regexp.js"))
+			contents: fs.readFileSync(path.resolve(__dirname, "../testfiles/fake-seajs-file-with-regexp.js"))
 		})
 
 		var stream = transport();
@@ -214,5 +213,27 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 		stream.write(fakeFile);
 
 		stream.end();
+	})
+
+	it("如果传入js文件内容不是有效的cmd格式,抛出异常", function (done) {
+
+
+		var fakeFile = new File({
+			base: "/test/",
+			path: "/test/helloworld.js",
+			contents: new Buffer("")
+		})
+
+		var stream = transport();
+
+		stream.on("error", function (error) {
+			expect(error).to.be.an.instanceOf(gutil.PluginError);
+			expect(error.message).to.include("the seajs file " + fakeFile.path + " is not valid");
+			done();
+		})
+
+
+		stream.write(fakeFile);
+
 	})
 })
