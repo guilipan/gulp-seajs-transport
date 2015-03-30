@@ -46,7 +46,7 @@ module.exports = function (options) {
 			var contents = file.contents.toString();
 
 
-			transport.call(this,file, options)
+			transport.call(this, file, options)
 
 			this.push(file);
 
@@ -85,7 +85,8 @@ module.exports = function (options) {
 		var oldAstSeaModule = ast.parseFirst(file.contents.toString())//{id: 'id', dependencies: ['a'], factory: factoryNode}
 
 		if (!oldAstSeaModule) {
-			this.emit("error",new PluginError("gulp-seajs-transport", "the seajs file " + file.path + " is not valid"))
+			this.emit("error", new PluginError("gulp-seajs-transport", "the seajs file " + file.path + " is not valid"))
+			return
 		}
 
 		var newId = parseId(file.path, options.base)
