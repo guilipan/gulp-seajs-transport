@@ -31,8 +31,22 @@ gulp.task("default",function(){
 }) 
    
 ```
+如果要生成一个相对路径的模块
 
-## API
+```
+var transport = require("gulp-seajs-transport");
+var gulp = require("gulp");
+
+gulp.task("default",function(){
+  gulp.src("./testfiles/abc/def/ggg.js",{base:"./testfiles/abc"})
+        .pipe(transport()) //此时seajs模块id为=>def/ggg
+        .pipe(gulp.dest("./dist"));
+}) 
+   
+
+```
+
+## API (0.1.0版本废弃,使用gulp自带的options设置base来)
 
 **options.base**
 
@@ -47,6 +61,7 @@ transport时可以指定一个基准路径,使生成的模块ID都是相对于�
 设置base为`/root/ab`
 
 最后的结果为=>`c/d`
+
 
 ## Change List
 
@@ -66,6 +81,8 @@ if (typeof define === "function" && define.cmd) {
 0.0.7 => 将transport的实现方法替换为cmd-util的抽象语法树方式
 
 0.0.10 => 修复当传入的js文件不属于合法的cmd格式的判断
+
+0.1.0 => 去掉本插件的base路径配置,使用gulp的file自带的
 ## Licence
 
 MIT

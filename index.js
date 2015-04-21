@@ -36,17 +36,10 @@ module.exports = function (options) {
 
 		else if (file.isBuffer()) {
 
-			if (!options.base) {
-
-				options.base = file.base;
-
-
-			}
-
 			var contents = file.contents.toString();
 
 
-			transport.call(this, file, options)
+			transport.call(this, file)
 
 			this.push(file);
 
@@ -70,17 +63,16 @@ module.exports = function (options) {
 
 	 =>c/d
 	 */
-	function parseId(filepath, transportBase) {
+	function parseId(fileRelativePath) {
 
-		var id = filepath
-			.replace(transportBase, "")//得到相对于base的路径
+		var id = fileRelativePath
 			.replace(/\\/g, "/")//将windows下的反斜线转成斜线
 			.replace(/^\/|\.\w+$/g, "");//去掉路径最前面的斜杠和和后缀
 
 		return id;
 	}
 
-	function transport(file, options) {
+	function transport(file) {
 
 		var oldAstSeaModule = ast.parseFirst(file.contents.toString())//{id: 'id', dependencies: ['a'], factory: factoryNode}
 
@@ -89,7 +81,7 @@ module.exports = function (options) {
 			return
 		}
 
-		var newId = parseId(file.path, options.base)
+		var newId = parseId(file.relative)
 
 		var newAstSeaModule = {id: newId, dependencies: oldAstSeaModule.dependencies, factory: oldAstSeaModule.factory}
 

@@ -113,7 +113,7 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
 			expect(file.isBuffer()).to.be.true;
 
-			expect(contents).to.contain("fuck/helloworld")
+			expect(contents).to.contain("demo/fuck/helloworld")
 
 				.and.to.contain('["./a","../dir/b"]')
 
