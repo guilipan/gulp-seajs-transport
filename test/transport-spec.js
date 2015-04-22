@@ -215,7 +215,7 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 		stream.end();
 	})
 
-	it("如果传入js文件内容不是有效的cmd格式,抛出异常", function (done) {
+	it("如果传入js文件内容不是有效的cmd格式,给出警告", function (done) {
 
 
 		var fakeFile = new File({
@@ -226,14 +226,13 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
 		var stream = transport();
 
-		stream.on("error", function (error) {
-			expect(error).to.be.an.instanceOf(gutil.PluginError);
-			expect(error.message).to.include("the seajs file " + fakeFile.path + " is not valid");
-			done();
+		stream.on("data", function (file) {
+			expect(file.contents.toString()).to.be.empty
 		})
 
-
+		stream.on("end",done)
 		stream.write(fakeFile);
 
+		stream.end()
 	})
 })

@@ -39,7 +39,7 @@ module.exports = function (options) {
 			var contents = file.contents.toString();
 
 
-			transport.call(this, file)
+			transport(file)
 
 			this.push(file);
 
@@ -77,8 +77,10 @@ module.exports = function (options) {
 		var oldAstSeaModule = ast.parseFirst(file.contents.toString())//{id: 'id', dependencies: ['a'], factory: factoryNode}
 
 		if (!oldAstSeaModule) {
-			this.emit("error", new PluginError("gulp-seajs-transport", "the seajs file " + file.path + " is not valid"))
-			return
+
+			gutil.log(gutil.colors.cyan('warning:'), "the seajs file " + file.path + " is not valid cmd format")
+
+			return;
 		}
 
 		var newId = parseId(file.relative)
