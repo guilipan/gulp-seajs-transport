@@ -89,7 +89,7 @@ module.exports = function (options) {
 
 		var newContent = ast.modify(file.contents.toString(), newAstSeaModule)
 
-		file.contents = new Buffer(newContent.print_to_string())
+		file.contents = new Buffer(newContent.print_to_string({beautify:true}))
 
 	}
 }

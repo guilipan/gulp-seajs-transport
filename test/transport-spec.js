@@ -37,10 +37,9 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 			var contents = file.contents.toString();
 
 			expect(file.isBuffer()).to.be.true;
-
 			expect(contents).to.contain("helloworld")
 
-				.and.to.contain('["./a","../dir/b"]')
+				.and.to.contain('"./a", "../dir/b"')
 
 		})
 
@@ -90,43 +89,6 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
 	})
 
-	it("设置base路径后的transport", function (done) {
-
-		var fakeFile = new File({
-			cwd: "/",
-			base: "/test/",
-			path: "/test/demo/fuck/helloworld.js",
-			contents: new Buffer('define(function (require, exports, module) {\
-\
-            var a=require("./a");\
-        var b=require("../dir/b");\
-        a.hello();\
-\
-    })')
-		});
-
-		var stream = transport({base: "./test/demo"});
-
-		stream.once("data", function (file) {
-
-			var contents = file.contents.toString();
-
-			expect(file.isBuffer()).to.be.true;
-
-			expect(contents).to.contain("demo/fuck/helloworld")
-
-				.and.to.contain('["./a","../dir/b"]')
-
-		})
-
-		stream.on("end", done);
-
-		stream.write(fakeFile);
-
-		stream.end();
-
-	})
-
 	it("如果file的contents为null,不做任何事情", function (done) {
 		var fakeFile = new File({
 			base: "/test/",
@@ -168,9 +130,8 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 			var contents = file.contents.toString();
 
 			expect(file.isBuffer()).to.be.true;
-
 			expect(contents)
-				.to.contain("function Animal(a,b)")
+				.to.contain("function Animal(a, b)")
 				.and.to.contain("helloworld")
 				.and.to.contain("[]")
 			;
@@ -199,11 +160,10 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 			var contents = file.contents.toString();
 
 			expect(file.isBuffer()).to.be.true;
-
 			expect(contents)
 				.to.contain("supportedTransforms")
 				.and.to.contain("/^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i")
-				.and.to.contain('str.replace(/([a-z])([A-Z])/,"$1-$2"');
+				.and.to.contain('"$1-$2"');
 
 
 		});
