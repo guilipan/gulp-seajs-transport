@@ -85,7 +85,7 @@ module.exports = function (options) {
 
 		var newId = parseId(file.relative)
 
-		var newAstSeaModule = {id: newId, dependencies: oldAstSeaModule.dependencies, factory: oldAstSeaModule.factory}
+		var newAstSeaModule = {id: oldAstSeaModule.id || newId, dependencies: oldAstSeaModule.dependencies, factory: oldAstSeaModule.factory}
 
 		var newContent = ast.modify(file.contents.toString(), newAstSeaModule)
 

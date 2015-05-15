@@ -195,4 +195,25 @@ describe("gulp的seajs插件,用于transport化seajs模块", function () {
 
 		stream.end()
 	})
+
+	it("如果传入js文件内容已经包含id", function (done) {
+
+
+		var fakeFile = new File({
+			base: "/test/",
+			path: "/test/helloworld.js",
+			contents: fs.readFileSync(path.resolve(__dirname, "../testfiles/fake-has-id.js"))
+		})
+
+		var stream = transport();
+
+		stream.on("data", function (file) {
+			expect(file.contents.toString()).to.contains("aaa")
+		})
+
+		stream.on("end",done)
+		stream.write(fakeFile);
+
+		stream.end()
+	})
 })
