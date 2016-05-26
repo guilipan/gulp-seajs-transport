@@ -83,7 +83,7 @@ module.exports = function (options) {
 			return;
 		}
 
-		var newId = parseId(file.relative)
+		var newId = (options.idleading?options.idleading:"") + parseId(file.relative)
 
 		var newAstSeaModule = {id: oldAstSeaModule.id || newId, dependencies: oldAstSeaModule.dependencies, factory: oldAstSeaModule.factory}
 

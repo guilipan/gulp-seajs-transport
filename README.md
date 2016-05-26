@@ -7,6 +7,8 @@ gulp-seajs-transport
 transport seajs module gulp plugin
 用于对seajs模块进行transport化
 
+新增idleading
+
 ## Note
 
 与[gulp-transport](https://github.com/popomore/gulp-transport)的区别是本插件不需要每个模块拥有package.json
@@ -39,7 +41,9 @@ var gulp = require("gulp");
 
 gulp.task("default",function(){
   gulp.src("./testfiles/abc/def/ggg.js",{base:"./testfiles/abc"})
-        .pipe(transport()) //此时seajs模块id为=>def/ggg
+        .pipe(transport({
+        	idleading:"/static/"
+        })) //此时seajs模块id为=>/static/def/ggg
         .pipe(gulp.dest("./dist"));
 }) 
    
